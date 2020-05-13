@@ -1,0 +1,11 @@
+language: generic
+sudo: required
+# tell travis we need docker
+services:
+  - docker
+before_install:
+  - docker build -t neild2142/docker-react -f Dockerfile.dev .
+# set of scripts required to run our test suite
+# CI-mode => tests will only run once instead of launching the watcher.
+script:
+  - docker run -e CI=true neild2142/docker-react npm run test
