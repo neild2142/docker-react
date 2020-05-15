@@ -2,6 +2,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [![Build Status](https://travis-ci.org/neild2142/docker-react.svg?branch=master)](https://travis-ci.org/neild2142/docker-react)
 
+Using nginx to serve our production ready build.
+
+`docker build -t neild2142/frontend-prod .`
+
+Ngnix runs on port 80 by defualt, with the build located in `usr/share/nginx/html/`:
+
+`docker run -it -p 8080:80 neild2142/frontend-prod`
+
+For Development - `docker-compose up`
+
 ## Available Scripts
 
 In the project directory, you can run:
