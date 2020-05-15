@@ -1,9 +1,9 @@
 # Build Phase 
-FROM node:alpine as builder
+FROM node:alpine
 
 WORKDIR /app
 
-COPY package.json . 
+COPY package*.json ./ 
 
 RUN npm install 
 
@@ -19,4 +19,4 @@ EXPOSE 80
 
 # Everything in the Build Phase is dropped from the container apart
 # from build/ 
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
