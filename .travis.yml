@@ -1,11 +1,29 @@
 language: generic
+
 sudo: required
 # tell travis we need docker
+
 services:
   - docker
+
 before_install:
   - docker build -t neild2142/docker-react -f Dockerfile.dev .
+
 # set of scripts required to run our test suite
 # CI-mode => tests will only run once instead of launching the watcher.
 script:
   - docker run -e CI=true neild2142/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  # Travis will take the codebase and place it in this bucket
+  bucket_name: "elasticbeanstalk-eu-west-1-023854297553"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  # stored on travis ci project - env variables
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
